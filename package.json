@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index",
-    "start": "node index"
+    "start": "node index",
+    "postinstall": "knex migrate:latest"
   },
   "repository": "https://github.com/bkerei/lenda.git",
   "author": "Your Name <you@example.com>",
