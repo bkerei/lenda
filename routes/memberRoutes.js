@@ -18,6 +18,21 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
     res.render('./members/edit')
 })
+router.post('/new', (req, res) => {
+    const newmember = {
+        name: req.body.name,
+        email: req.body.email,
+        image_URL: req.body.image_URL,
+        about_me: req.body.about_me,
+        username: req.body.username
+    }
+
+    membersDb.insertNewMember(newmember)
+        .then((newmember) => {
+            console.log(newmember)
+            res.redirect('./index')
+        })
+})
 
 router.get('/edit/:id', (req, res) => {
     res.send('edit a member')

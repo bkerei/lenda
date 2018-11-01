@@ -1,22 +1,26 @@
 {{!-- This will be a form, used for new member and edit existing member --}}
 <div class="memberform">
     <fieldset>
-        <form action="/new" method="post">
-            <label for="image">Image: </label>
-            <input type="url" name="image_URL" id="">
-            <br>
-            <label for="name">Name:</label>
-            <input type="text" name="name">
-            <br>
-            <label for="username">Username:</label>
-            <input type="text" name="username">
-            <br>
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="">
-            <br>
-            <label for="aboutme">About Me:</label>
-            <textarea name="about_me" id="" cols="30" rows="10"></textarea>
-
+        <form action="/members/new" method="post">
+            <fieldset>
+                <legend>Join Lenda - Community sharing</legend>
+                <label for="image">Image: </label>
+                <input type="url" name="image_URL" id="">
+                <br>
+                <label for="name">Name:</label>
+                <input type="text" name="name">
+                <br>
+                <label for="username">Username:</label>
+                <input type="text" name="username">
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="">
+                <br>
+                <label for="aboutme">About Me:</label>
+                <textarea name="about_me" id="" cols="30" rows="10"></textarea>
+                <br>
+                <button type="submit">Join</button>
+            </fieldset>
         </form>
     </fieldset>
 </div>

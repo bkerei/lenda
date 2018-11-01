@@ -4,7 +4,8 @@ const conn = require('knex')(config)
 
 module.exports = {
   getMembers: getMembers,
-  getMember: getMember
+  getMember: getMember,
+  insertNewMember: insertNewMember
 }
 
 function getMembers(db = conn) {
@@ -13,4 +14,9 @@ function getMembers(db = conn) {
 
 function getMember(id, db = conn) {
   return db('members').where('id', id).first()
+}
+
+function insertNewMember(profile, db = conn) {
+  return db('members')
+    .insert([{ name: profile.name, username: profile.username, email: profile.email, image_URL: profile.image_URL, about_me: profile.about_me }])
 }
