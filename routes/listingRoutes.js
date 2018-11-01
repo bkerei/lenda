@@ -3,6 +3,7 @@ const router = express.Router()
 const listingsDb = require('../data/listingsDb')
 const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
+const categoriesDb = require('../data/categoriesDb')
 const nav = { listings: true }
 
 router.get('/', (req, res) => {
@@ -15,16 +16,42 @@ router.get('/', (req, res) => {
     // render the list index view
 })
 
+router.get('/new', (req, res) => {
+    const newcate = req.params.name;
+    categoriesDb.getCategories()
+        .then(categories => {
+            let newMember = {}
+            res.render('./listings/edit', { categories: categories, member: newMember })
+        })
+
+})
+
+// router.post("./new", (req, res) => {
+//     let newListing = req.body;
+//     listingsDb.insertNewListing
+//     .then(function() {
+//         res.redirect("/listings/:id")
+//     })
+//     //do our db function
+//     //then redirect
+// })
+// router.get('/new', (req, res) => {
+//     res.render('./listings/edit')
+// })
 router.post('/new', (req, res) => {
-    const newlist = {
+    console.log("we hit the post route")
+    const newListings = {
         title: req.body.title,
-        description: req.body.title,
-        img_URL: req.body.img_URL
+        description: req.body.description,
+        image_URL: req.body.image_URL,
+        cost_in_cents: req.body.cost_in_cents,
     }
-    listingsDb.getNewList(newlist)
-        .then(lists => {
-            console.log('new lists are: ', lists)
-            res.redirect('/')
+    console.log(newListings)
+    listingsDb.insertNewListing(newListings)
+
+        .then((newListings) => {
+            console.log(newListings)
+            res.redirect('./index')
         })
 })
 

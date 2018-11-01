@@ -30,7 +30,7 @@ router.post('/new', (req, res) => {
     membersDb.insertNewMember(newmember)
         .then((newmember) => {
             console.log(newmember)
-            res.redirect('./index')
+            res.redirect('/members/' + newmember)
         })
 })
 
