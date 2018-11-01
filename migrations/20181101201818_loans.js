@@ -5,6 +5,9 @@ exports.up = function(knex, Promise) {
         table.integer('listing_id') // single item/listing per loan for MVP
         table.integer('borrower_id')
         table.integer('costs_in_cents').defaultTo(0)
+        table.dateTime('start_date')
+        table.dateTime('end_date')
+        table.string('status').defaultTo('requested')  // confirmed, declined
         table.text('notes')
         table.dateTime('created_at').defaultTo(knex.fn.now())
     }

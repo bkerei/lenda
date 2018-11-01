@@ -5,7 +5,13 @@ const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
 
 router.get('/', (req, res) => {
-    res.send('members index')
+    // get the members list data
+    membersDb.getMembers()
+        .then( members => {
+            res.render('./members/index', {members: members})
+        })
+
+    // render the members index view
 })
 
 router.get('/:id', (req, res) => {
