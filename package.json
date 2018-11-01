@@ -1,0 +1,19 @@
+{
+  "name": "lenda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/bkerei/lenda.git",
+  "author": "Your Name <you@example.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.12",
+    "knex": "^0.15.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5",
+    "cheerio": "^1.0.0-rc.2",
+    "jest": "^23.6.0"
+  }
+}
