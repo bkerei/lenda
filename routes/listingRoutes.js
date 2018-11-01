@@ -4,11 +4,11 @@ const listingsDb = require('../data/listingsDb')
 const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
 const categoriesDb = require('../data/categoriesDb')
-const nav = {listings: true}
+const nav = { listings: true }
 
 router.get('/', (req, res) => {
     // get the list data
-   listingsDb.getLists()
+    listingsDb.getLists()
         .then(listings => {
             res.render('./listings/index', { listings: listings, nav: nav })
         })
@@ -19,11 +19,11 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
     const newcate = req.params.name;
     categoriesDb.getCategories()
-    .then(categories => {
-        let newMember = { }
-        res.render('./listings/edit', {categories: categories, member: newMember})
-    })
-    
+        .then(categories => {
+            let newMember = {}
+            res.render('./listings/edit', { categories: categories, member: newMember })
+        })
+
 })
 
 // router.post("./new", (req, res) => {
@@ -46,9 +46,9 @@ router.post('/new', (req, res) => {
         image_URL: req.body.image_URL,
         cost_in_cents: req.body.cost_in_cents,
     }
-console.log(newListings)
+    console.log(newListings)
     listingsDb.insertNewListing(newListings)
-    
+
         .then((newListings) => {
             console.log(newListings)
             res.redirect('./index')
@@ -64,6 +64,8 @@ router.get('/:id', (req, res) => {
             res.render('./listings/view', { listings: listings, nav: nav })
         })
 })
+
+
 
 router.get('/edit/:id', (req, res) => {
     res.send('edit a listing')

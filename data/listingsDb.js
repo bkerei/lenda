@@ -18,5 +18,5 @@ function getList(id, db = conn) {
 
 function insertNewListing(listing, db = conn) {
     return db('listings')
-      .insert([{ title: listing.title, image_URL: listing.image_URL, description: listing.description, cost_in_cents: listing.cost_in_cents}])
-  }
+        .insert([{ title: listing.title, image_URL: listing.image_URL, description: listing.description, cost_in_cents: listing.cost_in_cents }])
+}
