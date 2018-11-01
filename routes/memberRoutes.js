@@ -8,8 +8,8 @@ const loansDb = require('../data/loansDb')
 router.get('/', (req, res) => {
     // get the members list data
     membersDb.getMembers()
-        .then( members => {
-            res.render('./members/index', {members: members, nav: {community: true}})
+        .then(members => {
+            res.render('./members/index', { members: members, nav: { community: true } })
         })
 
     // render the members index view
@@ -29,11 +29,30 @@ router.get('/:id', (req, res) => {
 
     // get the user data
     membersDb.getMember(id)
-        .then( member => {
-            res.render('./members/view', {member: member, nav: {profile: true}})
+        .then(member => {
+            res.render('./members/view', { member: member, nav: { profile: true } })
         })
 
     // render the member view view
+
+})
+
+router.post('/login', (req, res) => {
+
+    res.redirect('/')
+    // get the login username and password
+    const username = req.body.params.username
+
+    // get the user that has that username
+    membersDb.getMemberByUsername(username)
+        // set the current logged-in user session-data to be the found user.id
+        .then(user => {
+            sessionStorage.setItem('currentUserId', user.id);
+            sessionStorage.setItem('showMessage', 'Welcome ' + user.name)
+            // redirect to home
+            res.redirect('/')
+        })
+
 
 })
 

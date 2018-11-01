@@ -4,7 +4,8 @@ const conn = require('knex')(config)
 
 module.exports = {
   getMembers: getMembers,
-  getMember: getMember
+  getMember: getMember,
+  getMemberByUsername: getMemberByUsername
 }
 
 function getMembers(db = conn) {
@@ -13,4 +14,8 @@ function getMembers(db = conn) {
 
 function getMember(id, db = conn) {
   return db('members').where('id', id).first()
+}
+
+function getMemberByUsername(username, db = conn) {
+  return db('members').where('username', username).first()
 }
