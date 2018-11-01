@@ -8,7 +8,6 @@ module.exports = {
 }
 
 function getLists(db = conn) {
-    console.log(db)
     return db('listings').select().orderBy('title')
 }
 
