@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon index",
     "start": "node index",
-    "postinstall": "knex migrate:latest"
+    "postinstall": "knex migrate:latest && knex seed:run"
   },
   "repository": "https://github.com/bkerei/lenda.git",
   "author": "Your Name <you@example.com>",
