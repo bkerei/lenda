@@ -16,7 +16,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-    res.send('create a new member')
+    
+    
 })
 
 router.get('/edit/:id', (req, res) => {
