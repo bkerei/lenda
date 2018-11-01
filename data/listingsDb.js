@@ -4,7 +4,8 @@ const conn = require('knex')(config)
 
 module.exports = {
     getLists: getLists,
-    getList: getList
+    getList: getList,
+    getNewList: getNewList
 }
 
 function getLists(db = conn) {
@@ -13,4 +14,13 @@ function getLists(db = conn) {
 
 function getList(id, db = conn) {
     return db('listings').where('id', id).first()
+}
+
+function getNewList(newlist, db = conn) {
+    return db('listings')
+        .insert([{
+            title: newlist.title,
+            description: newlist.description,
+            img_URL: newlist.img_URL
+        }])
 }

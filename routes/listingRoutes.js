@@ -3,7 +3,7 @@ const router = express.Router()
 const listingsDb = require('../data/listingsDb')
 const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
-const nav = {listings: true}
+const nav = { listings: true }
 
 router.get('/', (req, res) => {
     // get the list data
@@ -13,6 +13,19 @@ router.get('/', (req, res) => {
         })
 
     // render the list index view
+})
+
+router.post('/new', (req, res) => {
+    const newlist = {
+        title: req.body.title,
+        description: req.body.title,
+        img_URL: req.body.img_URL
+    }
+    listingsDb.getNewList(newlist)
+        .then(lists => {
+            console.log('new lists are: ', lists)
+            res.redirect('/')
+        })
 })
 
 router.get('/:id', (req, res) => {
@@ -25,9 +38,7 @@ router.get('/:id', (req, res) => {
         })
 })
 
-router.get('/new', (req, res) => {
-    res.render('./listings/edit')
-})
+
 
 router.get('/edit/:id', (req, res) => {
     res.send('edit a listing')
