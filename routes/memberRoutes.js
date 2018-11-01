@@ -15,9 +15,9 @@ router.get('/', (req, res) => {
     // render the members index view
 })
 
-router.get('/new', (req, res) => {
-    
-    
+// used for register
+router.get('/new', (req, res) => { 
+
 })
 
 router.get('/edit/:id', (req, res) => {
@@ -38,24 +38,35 @@ router.get('/:id', (req, res) => {
 
 })
 
+router.get('/logout', (req, res) => {
+    console.log("Current user 1 >>>>> ", server.getCurrentUserId)
+    membersDb.setCurrentUserId = 0
+    res.redirect('/')
+})
+
 router.post('/login', (req, res) => {
 
-    res.redirect('/')
     // get the login username and password
-    const username = req.body.params.username
+    const email = req.body.email
 
     // get the user that has that username
-    membersDb.getMemberByUsername(username)
+    membersDb.getMemberByEmail(email)
         // set the current logged-in user session-data to be the found user.id
         .then(user => {
-            sessionStorage.setItem('currentUserId', user.id);
-            sessionStorage.setItem('showMessage', 'Welcome ' + user.name)
+            // sessionStorage.setItem('currentUserId', user.id);
+            // sessionStorage.setItem('showMessage', 'Welcome ' + user.name)
+            if (user) {
+                membersDb.setCurrentUser = user
+                res.redirect('/members/' + user.id)
+            } else {
             // redirect to home
             res.redirect('/')
+        }
         })
+}
+)
 
 
-})
 
 
 
