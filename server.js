@@ -18,15 +18,14 @@ server.use(express.urlencoded({
 }))
 
 // routes
-const memberRoutes = require('./routes/memberRoutes')
-const listingRoutes = require('./routes/listingRoutes')
-const loanRoutes = require('./routes/loanRoutes')
+// const memberRoutes = require('./routes/memberRoutes').membersRouter
+const listingRoutes = require('./routes/listingRoutes').listingsRouter
+// const loanRoutes = require('./routes/loanRoutes').loansRouter
 
 server.use('/listings', listingRoutes)
-server.use('/members', memberRoutes)
-server.use('/loans', loanRoutes)
+// server.use('/members', memberRoutes)
+// server.use('/loans', loanRoutes)
 server.use('/', listingRoutes)
-
 
 
 
