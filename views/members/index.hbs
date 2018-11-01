@@ -2,13 +2,14 @@
 
 <ul>
     {{#each members}}
-    <li> <a href="/users/{{id}}">
-        <img src="{{image_URL}}" alt="image of {{username}}" title="image of {{username}}({{name}})" style="max-height: 80px;">
-        <br>
-        id: {{id}} username: {{username}}</a> <br>
-        Name: {{name}} <br>
-        About: {{about_me}} <br>
-        <a href="/users/{{id}}/edit">Edit</a> <br> <br>
+    <li> <a href="/members/{{id}}">
+            <p> <img src="{{image_URL}}" alt="image of {{username}}" title="image of {{username}}({{name}})" style="max-height: 80px;">
+            </p>
+            <h4>username: {{username}}</h4>
+        </a>
+        <p>Name: {{name}}</p>
+        <p>About: {{about_me}} <br> <a href="/members/{{id}}/edit">Edit</a></p>
+         <br> <br>
     </li>
     {{/each}}
 </ul>

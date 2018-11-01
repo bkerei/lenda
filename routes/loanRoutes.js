@@ -3,6 +3,7 @@ const router = express.Router()
 const listingsDb = require('../data/listingsDb')
 const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
+const nav = {bookings: true}
 
 router.get('/', (req, res) => {
     res.send('loans index')
