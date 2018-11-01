@@ -5,11 +5,23 @@ const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
 
 router.get('/', (req, res) => {
-    res.send('listings index')
+    // get the list data
+    listingsDb.getLists()
+        .then(listings => {
+            res.render('./listings/index', { listings: listings })
+        })
+
+    // render the list index view
 })
 
 router.get('/:id', (req, res) => {
-    res.send('a listing view')
+    //get the list id
+    const id = req.params.id;
+    //get the listings data
+    listingsDb.getList(id)
+        .then(listings => {
+            res.render('./listings/view', listings)
+        })
 })
 
 router.get('/new', (req, res) => {
@@ -22,4 +34,4 @@ router.get('/edit/:id', (req, res) => {
 
 
 
-module.exports = {listingsRouter: router}
+module.exports = { listingsRouter: router }

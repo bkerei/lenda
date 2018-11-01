@@ -7,8 +7,8 @@ const loansDb = require('../data/loansDb')
 router.get('/', (req, res) => {
     // get the members list data
     membersDb.getMembers()
-        .then( members => {
-            res.render('./members/index', {members: members})
+        .then(members => {
+            res.render('./members/index', { members: members })
         })
 
     // render the members index view
@@ -17,10 +17,10 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     // get the user id
     const id = req.params.id
-    
+
     // get the user data
     membersDb.getMember(id)
-        .then( member => {
+        .then(member => {
             res.render('./members/view', member)
         })
 
@@ -38,4 +38,4 @@ router.get('/edit/:id', (req, res) => {
 
 
 
-module.exports = {membersRouter: router}
+module.exports = { membersRouter: router }
