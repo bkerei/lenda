@@ -15,6 +15,10 @@ router.get('/', (req, res) => {
     // render the list index view
 })
 
+router.get('/new', (req, res) => {
+    res.render('./listings/edit')
+})
+
 router.get('/:id', (req, res) => {
     //get the list id
     const id = req.params.id;
@@ -23,10 +27,6 @@ router.get('/:id', (req, res) => {
         .then(listings => {
             res.render('./listings/view', { listings: listings, nav: nav })
         })
-})
-
-router.get('/new', (req, res) => {
-    res.render('./listings/edit')
 })
 
 router.get('/edit/:id', (req, res) => {
