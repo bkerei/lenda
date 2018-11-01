@@ -15,7 +15,17 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    res.send('a member view')
+    // get the user id
+    const id = req.params.id
+    
+    // get the user data
+    membersDb.getMember(id)
+        .then( member => {
+            res.render('./members/view', member)
+        })
+
+    // render the member view view
+
 })
 
 router.get('/new', (req, res) => {
