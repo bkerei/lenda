@@ -34,7 +34,10 @@ Contents:
 }
 
 body {
-    /* background-color: black; */
+    /* background-color: aquamarine; */
+    background-image: url("../images/128-119.jpg");
+    background-repeat:repeat;
+    /* background-repeat: repeat-y; */
     font-family: Raleway, sans-serif;
     font-size: 12px;
     margin: 0;
@@ -74,10 +77,10 @@ header {
     margin-top:15px;
     color: white;
     /* display: grid; */
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 3fr;
     grid-area: header;
     background-color: cadetblue; /* if image unavailable */
-    background-image: url("../images/film-1668918_1280.jpg");
+    background-image: url("../images/blurry-background-of-people-walking_vk83ouc-eg__F0004.png");
     background-repeat: no-repeat;
     background-size: auto;
     background-position-y: -20px;

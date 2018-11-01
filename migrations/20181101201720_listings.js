@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
         table.increments('id').primary()
         table.string('title')
         table.integer('member_id')
+        table.integer('category_id')  // only one category per listing for MVP
         table.string('image_URL')
         table.text('description')
         table.integer('cost_in_cents').defaultTo(0)

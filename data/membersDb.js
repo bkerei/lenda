@@ -1,13 +1,16 @@
 const environment = process.env.NODE_ENV || 'development'
 const config = require('../knexfile')[environment]
-const db = require('knex')(config)
+const conn = require('knex')(config)
 
 module.exports = {
   getMembers: getMembers,
-  
+  getMember: getMember
 }
 
-function getMembers(testConn = db) {
-  const conn = testConn
-  return conn('members').select().orderBy('name')
+function getMembers(db = conn) {
+  return db('members').select().orderBy('name')
+}
+
+function getMember(id, db = conn) {
+  return db('members').where('id', id).first()
 }

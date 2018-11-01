@@ -1,0 +1,15 @@
+<h2>Listings List</h2>
+
+<ul>
+    {{#each listings}}
+    <li> <a href="/listings/{{id}}">
+            <p> <img src="{{image_URL}}" alt="image of {{title}}" title="image of {{title}}" style="max-height: 80px;">
+            </p>
+            <h4>Title: {{title}}</h4>
+        </a>
+        <p>Cost: {{cost_in_cents}}</p>
+        <p>Description: {{description}} <br> <a href="/listings/{{id}}/edit">Edit</a></p>
+        <br> <br>
+    </li>
+    {{/each}}
+</ul>
