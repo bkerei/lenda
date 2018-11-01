@@ -4,7 +4,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index"
-
   },
   "repository": "https://github.com/bkerei/lenda.git",
   "author": "Your Name <you@example.com>",
@@ -14,11 +13,11 @@
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.12",
     "knex": "^0.15.2",
-    "sqlite3": "4.0.3"
+    "sqlite3": "^4.0.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.5",
     "cheerio": "^1.0.0-rc.2",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.5"
   }
 }

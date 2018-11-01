@@ -26,7 +26,7 @@ router.get('/edit/:id', (req, res) => {
 router.get('/:id', (req, res) => {
     // get the user id
     const id = req.params.id
-    
+
     // get the user data
     membersDb.getMember(id)
         .then( member => {
@@ -40,4 +40,4 @@ router.get('/:id', (req, res) => {
 
 
 
-module.exports = {membersRouter: router}
+module.exports = { membersRouter: router }
