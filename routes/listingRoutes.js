@@ -3,12 +3,13 @@ const router = express.Router()
 const listingsDb = require('../data/listingsDb')
 const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
+const nav = {listings: true}
 
 router.get('/', (req, res) => {
     // get the list data
     listingsDb.getLists()
         .then(listings => {
-            res.render('./listings/index', { listings: listings })
+            res.render('./listings/index', { listings: listings, nav: nav })
         })
 
     // render the list index view
@@ -20,7 +21,7 @@ router.get('/:id', (req, res) => {
     //get the listings data
     listingsDb.getList(id)
         .then(listings => {
-            res.render('./listings/view', listings)
+            res.render('./listings/view', { listings: listings, nav: nav })
         })
 })
 

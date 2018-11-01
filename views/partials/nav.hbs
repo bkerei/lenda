@@ -1,1 +1,17 @@
-I'm the nav man!!
+<nav class="grid">
+  <p class="{{#if nav.home}}current{{/if}}">
+    <a href="/">Home</a>
+  </p>
+  <p class="{{#if nav.listings}}current{{/if}}">
+    <a href="/listings?cat=1">Browse</a>
+  </p>
+  <p class="{{#if nav.bookings}}current{{/if}}">
+    <a href="/loans/">Bookings</a>
+  </p>
+  <p class="{{#if nav.community}}current{{/if}}">
+    <a href="../members/">Community</a>
+  </p>
+  <p class="{{#if nav.profile}}current{{/if}}">
+    <a href="../members/new">Join / sign-in / profile</a>
+  </p>
+</nav>
