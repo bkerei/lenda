@@ -8,15 +8,15 @@ const loansDb = require('../data/loansDb')
 router.get('/', (req, res) => {
     // get the members list data
     membersDb.getMembers()
-        .then( members => {
-            res.render('./members/index', {members: members, nav: {community: true}})
+        .then(members => {
+            res.render('./members/index', { members: members, nav: { community: true } })
         })
 
     // render the members index view
 })
 
 router.get('/new', (req, res) => {
-    res.send('create a new member')
+    res.render('./members/edit')
 })
 
 router.get('/edit/:id', (req, res) => {
@@ -29,8 +29,8 @@ router.get('/:id', (req, res) => {
 
     // get the user data
     membersDb.getMember(id)
-        .then( member => {
-            res.render('./members/view', {member: member, nav: {profile: true}})
+        .then(member => {
+            res.render('./members/view', { member: member, nav: { profile: true } })
         })
 
     // render the member view view
