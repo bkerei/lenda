@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-    res.send('create a new listing')
+    res.render('./listings/edit')
 })
 
 router.get('/edit/:id', (req, res) => {

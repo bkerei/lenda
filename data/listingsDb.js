@@ -8,7 +8,8 @@ module.exports = {
 }
 
 function getLists(db = conn) {
-    return db('listings').select()
+    console.log(db)
+    return db('listings').select().orderBy('title')
 }
 
 function getList(id, db = conn) {
