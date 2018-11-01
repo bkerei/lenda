@@ -61,4 +61,4 @@ typings/
 .next
 
 # data bats file
-.sqlite3
+*.sqlite3
