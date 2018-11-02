@@ -7,7 +7,7 @@
         <h1>Lenda - community sharing</h1>
         <p class="subtitle">EDA - Hihi 2018 Group Project 3.1</p>
     </div>
-    <div class="formContainer login">
+        <div class="formContainer login">
         {{#unless currentUser.id}}
         <form action="/members/login" method="post">
             <fieldset>
@@ -29,5 +29,6 @@
         {{/unless}}
 
     </div>
+
 </header>
 {{>nav}}
