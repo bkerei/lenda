@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     // get the list data
     listingsDb.getLists()
         .then(listings => {
-            res.render('./listings/index', { listings: listings, nav: nav })
+            res.render('./listings/index', { listings: listings, nav: nav, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the list index view
@@ -21,25 +21,26 @@ router.get('/new', (req, res) => {
     categoriesDb.getCategories()
         .then(categories => {
             let newMember = {}
-            res.render('./listings/edit', { categories: categories, member: newMember })
+            res.render('./listings/edit', { categories: categories, member: newMember, currentUser: membersDb.getCurrentUser() })
         })
 
 })
 
 router.post('/new', (req, res) => {
-    console.log("we hit the post route")
-    const newListings = {
+    // console.log("we hit the post route")
+    const newListing = {
+        user_id: membersDb.getCurrentUser.id,
         title: req.body.title,
         description: req.body.description,
         image_URL: req.body.image_URL,
         cost_in_cents: req.body.cost_in_cents,
     }
-    console.log(newListings)
-    listingsDb.insertNewListing(newListings)
+    // console.log(newListings)
+    listingsDb.insertNewListing(newListing)
 
-        .then((newListings) => {
-            console.log(newListings)
-            res.redirect('./index')
+        .then((newListingId) => {
+            // console.log(newListings)
+            res.redirect('/listings/' + newListingId)
         })
 })
 
@@ -48,8 +49,13 @@ router.get('/:id', (req, res) => {
     const id = req.params.id;
     //get the listings data
     listingsDb.getList(id)
-        .then(listings => {
-            res.render('./listings/view', { listings: listings, nav: nav })
+        .then(listing => {
+            // get the listing owner
+            // console.log("Listing >>>>>>>>>>>> ", listing)
+            membersDb.getMember(listing.member_id)
+                .then(listingOwner => {
+            res.render('./listings/view', { listings: listing, owner: listingOwner, nav: nav, currentUser: membersDb.getCurrentUser() })
+                })
         })
 })
 
