@@ -6,22 +6,117 @@ const loansDb = require('../data/loansDb')
 // const nav = {community: true}
 
 router.get('/', (req, res) => {
+    // console.log("Current user >>>>>  ", membersDb.getCurrentUser())
     // get the members list data
     membersDb.getMembers()
-        .then( members => {
-            res.render('./members/index', {members: members, nav: {community: true}})
+        .then(members => {
+            res.render('./members/index', { members: members, nav: { community: true }, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the members index view
 })
 
 router.get('/new', (req, res) => {
-    res.send('create a new member')
+    res.render('./members/edit')
 })
 
-router.get('/edit/:id', (req, res) => {
-    res.send('edit a member')
+// router.post('/new', (req, res) => {
+//     const newmember = {
+//         name: req.body.name,
+//         email: req.body.email,
+//         image_URL: req.body.image_URL,
+//         about_me: req.body.about_me,
+//         username: req.body.username
+//     }
+
+//     membersDb.insertNewMember(newmember)
+//         .then((newMemberId) => {
+//             // console.log(newmember)
+//             res.redirect('/members/' + newMemberId)
+//         })
+// })
+
+router.post('/edit', (req, res) => {
+    const member = {
+        name: req.body.name,
+        email: req.body.email,
+        image_URL: req.body.image_URL,
+        about_me: req.body.about_me,
+        username: req.body.username
+    }
+    if (req.body.id) {
+        member.id = req.body.id
+        membersDb.editMember(member)
+            .then((memberId) => {
+                res.redirect('/members/' + member.id)
+            })
+    } else {
+        membersDb.insertNewMember(member)
+            .then((newMemberId) => {
+                console.log('new id is >>>>>>>>>>', newMemberId)
+                // console.log('new current user is is >>>>', membersDb.getMember(newMemberId))
+                membersDb.getMember(newMemberId[0])
+                    .then((member) => {
+                        console.log('current member is >>>>>>', member)
+                        membersDb.setCurrentUser(member)
+                        res.redirect('/members/' + newMemberId)
+                    })
+
+                // console.log(newmember)
+
+            })
+
+    }
+
+
 })
+
+router.get('/logout', (req, res) => {
+    // res.send("log out")
+    // console.log("Current user before logout >>>>>---------------------------------- ", membersDb.getCurrentUser())
+    membersDb.setCurrentUser({})
+    // console.log("Current user after logout >>>>> ", membersDb.getCurrentUser())
+    res.redirect('/')
+})
+
+router.post('/login', (req, res) => {
+
+    // get the login username and password
+    const email = req.body.email
+
+    // get the user that has that username
+    membersDb.getMemberByEmail(email)
+        // set the current logged-in user session-data to be the found user.id
+        .then(user => {
+            // sessionStorage.setItem('currentUserId', user.id);
+            // sessionStorage.setItem('showMessage', 'Welcome ' + user.name)
+            if (user) {
+                // console.log("about to set user, current user is >>>> ", membersDb.getCurrentUser())
+                membersDb.setCurrentUser(user)
+                // console.log("Just set user, current user is now >>>> ", membersDb.getCurrentUser())
+                res.redirect('/members/' + user.id)
+            } else {
+                // redirect to home
+                res.redirect('/')
+            }
+        })
+}
+)
+
+
+
+
+router.get('/:id/edit', (req, res) => {
+    const id = req.params.id;
+    membersDb.getMember(id)
+        .then(member => {
+            console.log('update member is', member)
+
+            res.render('./members/edit', member)
+        })
+
+})
+
 
 router.get('/:id', (req, res) => {
     // get the user id
@@ -29,14 +124,13 @@ router.get('/:id', (req, res) => {
 
     // get the user data
     membersDb.getMember(id)
-        .then( member => {
-            res.render('./members/view', {member: member, nav: {profile: true}})
+        .then(member => {
+            res.render('./members/view', { member: member, nav: { profile: true }, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the member view view
 
 })
-
 
 
 

@@ -1,0 +1,16 @@
+<h2>Update Profile for{{member.username}}</h2>
+
+<img src="{{member.image_URL}}" alt="image of {{member.username}}" title="image of {{member.username}}({{member.name}})"
+    style="max-height: 150px;">
+<form action="/members/update" method="POST">
+    <label for="name">Name: </label>
+    <input type="text" name={{member.name}} id="">
+    <br>
+    <label for="email">Email: </label>
+    <input type="text" name={{memeber.email}}>
+    <br>
+    <label for="about">About: </label>
+    <input type="text" name={{member.about_me}}>
+    <br>
+    <button type="submit">Update</button>
+</form>
