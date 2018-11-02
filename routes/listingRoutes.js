@@ -26,18 +26,6 @@ router.get('/new', (req, res) => {
 
 })
 
-// router.post("./new", (req, res) => {
-//     let newListing = req.body;
-//     listingsDb.insertNewListing
-//     .then(function() {
-//         res.redirect("/listings/:id")
-//     })
-//     //do our db function
-//     //then redirect
-// })
-// router.get('/new', (req, res) => {
-//     res.render('./listings/edit')
-// })
 router.post('/new', (req, res) => {
     // console.log("we hit the post route")
     const newListings = {
