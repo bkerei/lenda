@@ -34,9 +34,32 @@ router.post('/new', (req, res) => {
         })
 })
 
-router.get('/edit/:id', (req, res) => {
-    res.send('edit a member')
+router.get('/:id/edit', (req, res) => {
+    const member = {
+        name: req.body.name,
+        email: req.body.email,
+        image_URL: req.body.image_URL,
+        about_me: req.body.about_me,
+        username: req.body.username
+    }
+    membersDb.editMember(member)
+        .then((member) => {
+            console.log(member)
+            res.render('./members/edit' + member)
+        })
+
 })
+
+
+router.get('/:id/edit', (req, res) => {
+    membersDb.editMember()
+        .then(member => {
+            console.log('update member is', member)
+            res.render('./members/update' + member)
+        })
+
+})
+
 
 router.get('/:id', (req, res) => {
     // get the user id
