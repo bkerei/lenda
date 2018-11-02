@@ -7,7 +7,10 @@ let currentUser = {};
 module.exports = {
   getMembers: getMembers,
   getMember: getMember,
-  getMemberByEmail: getMemberByEmail 
+  getMemberByEmail: getMemberByEmail, 
+  getCurrentUser: getCurrentUser,
+  setCurrentUser: setCurrentUser,
+  insertNewMember: insertNewMember
 }
 
 function getMembers(db = conn) {
@@ -23,10 +26,19 @@ function getMemberByEmail(email, db = conn) {
 }
 
 
-function getCurrentUserId() {
-  return currentUserId
+function getCurrentUser() {
+  // console.log("getting current user >>>>> ", currentUser)
+  return currentUser
 }
 
-function setCurrentUserId(user) {
-  return currentUserId = user
+function setCurrentUser(user) {
+  // console.log("Setting current user >>>>> ", user)
+  currentUser = user
+  // console.log("Current user is now >>>>> ", currentUser)
+
+  return currentUser
+}
+function insertNewMember(profile, db = conn) {
+  return db('members')
+    .insert([{ name: profile.name, username: profile.username, email: profile.email, image_URL: profile.image_URL, about_me: profile.about_me }])
 }

@@ -6,41 +6,41 @@ const loansDb = require('../data/loansDb')
 // const nav = {community: true}
 
 router.get('/', (req, res) => {
+    // console.log("Current user >>>>>  ", membersDb.getCurrentUser())
     // get the members list data
     membersDb.getMembers()
         .then(members => {
-            res.render('./members/index', { members: members, nav: { community: true } })
+            res.render('./members/index', { members: members, nav: { community: true }, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the members index view
 })
 
-// used for register
-router.get('/new', (req, res) => { 
-
+router.get('/new', (req, res) => {
+    res.render('./members/edit')
 })
 
-router.get('/edit/:id', (req, res) => {
-    res.send('edit a member')
-})
+router.post('/new', (req, res) => {
+    const newmember = {
+        name: req.body.name,
+        email: req.body.email,
+        image_URL: req.body.image_URL,
+        about_me: req.body.about_me,
+        username: req.body.username
+    }
 
-router.get('/:id', (req, res) => {
-    // get the user id
-    const id = req.params.id
-
-    // get the user data
-    membersDb.getMember(id)
-        .then(member => {
-            res.render('./members/view', { member: member, nav: { profile: true } })
+    membersDb.insertNewMember(newmember)
+        .then((newMemberId) => {
+            // console.log(newmember)
+            res.redirect('/members/' + newMemberId)
         })
-
-    // render the member view view
-
 })
 
 router.get('/logout', (req, res) => {
-    console.log("Current user 1 >>>>> ", server.getCurrentUserId)
-    membersDb.setCurrentUserId = 0
+    // res.send("log out")
+    // console.log("Current user before logout >>>>>---------------------------------- ", membersDb.getCurrentUser())
+    membersDb.setCurrentUser({})
+    // console.log("Current user after logout >>>>> ", membersDb.getCurrentUser())
     res.redirect('/')
 })
 
@@ -56,18 +56,37 @@ router.post('/login', (req, res) => {
             // sessionStorage.setItem('currentUserId', user.id);
             // sessionStorage.setItem('showMessage', 'Welcome ' + user.name)
             if (user) {
-                membersDb.setCurrentUser = user
+                // console.log("about to set user, current user is >>>> ", membersDb.getCurrentUser())
+                membersDb.setCurrentUser(user)
+                // console.log("Just set user, current user is now >>>> ", membersDb.getCurrentUser())
                 res.redirect('/members/' + user.id)
             } else {
-            // redirect to home
-            res.redirect('/')
-        }
+                // redirect to home
+                res.redirect('/')
+            }
         })
 }
 )
 
 
 
+router.get('/edit/:id', (req, res) => {
+    res.send('edit a member')
+})
+
+router.get('/:id', (req, res) => {
+    // get the user id
+    const id = req.params.id
+
+    // get the user data
+    membersDb.getMember(id)
+        .then(member => {
+            res.render('./members/view', { member: member, nav: { profile: true }, currentUser: membersDb.getCurrentUser() })
+        })
+
+    // render the member view view
+
+})
 
 
 

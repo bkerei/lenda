@@ -5,7 +5,6 @@ const hbs = require('express-handlebars')
 // server 
 const server = express()
 
-let currentUser = {};
 
 // middleware
 server.engine('hbs', hbs({

@@ -7,22 +7,27 @@
         <h1>Lenda - community sharing</h1>
         <p class="subtitle">EDA - Hihi 2018 Group Project 3.1</p>
     </div>
-    <div class = "formContainer login">
+    <div class="formContainer login">
+        {{#unless currentUser.id}}
         <form action="/members/login" method="post">
             <fieldset>
                 <br>
                 <legend>
                     Sign in
                 </legend>
-                <label for ="email">Email address:</label>
-                <input type="email" name ="email" accept="email">
+                <label for="email">Email address:</label>
+                <input type="email" name="email" accept="email">
                 <br>
-                <label for ="password">password:</label>
-                <input type="password" name = "password" accept="password">
+                <label for="password">Password:</label>
+                <input type="password" name="password" accept="password">
                 <br>
                 <input type="submit" value="Log in">
             </fieldset>
         </form>
+        {{else}}
+        <a href="../members/logout">log-out</a>
+        {{/unless}}
+
     </div>
 </header>
 {{>nav}}

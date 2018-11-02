@@ -1,9 +1,12 @@
 <nav class="grid">
-  <p class="{{#if nav.home}}current{{/if}}">
+  {{!-- <p class="{{#if nav.home}}current{{/if}}">
     <a href="/">Home</a>
-  </p>
+  </p> --}}
   <p class="{{#if nav.listings}}current{{/if}}">
     <a href="/listings?cat=1">Browse</a>
+  </p>
+  <p class="{{#if nav.bookings}}current{{/if}}">
+    <a href="/listings/new">List something</a>
   </p>
   <p class="{{#if nav.bookings}}current{{/if}}">
     <a href="/loans/">Bookings</a>
@@ -12,6 +15,10 @@
     <a href="../members/">Community</a>
   </p>
   <p class="{{#if nav.profile}}current{{/if}}">
-    <a href="../members/new">Join / profile</a>
+    {{#if currentUser}}
+    <a href="../members/">{{currentUser.username}}'s profile</a>
+    {{else}}
+    <a href="../members/new">sign-up</a>
+    {{/if}}
   </p>
 </nav>
