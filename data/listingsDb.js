@@ -9,7 +9,7 @@ module.exports = {
 }
 
 function getLists(db = conn) {
-    return db('listings').select().orderBy('title')
+    return db('listings').select().orderBy('created_at', 'DESC')
 }
 
 function getList(id, db = conn) {
@@ -18,5 +18,10 @@ function getList(id, db = conn) {
 
 function insertNewListing(listing, db = conn) {
     return db('listings')
-        .insert([{ title: listing.title, image_URL: listing.image_URL, description: listing.description, cost_in_cents: listing.cost_in_cents }])
+        .insert([{ member_id: listing.member_id, title: listing.title, image_URL: listing.image_URL, description: listing.description, cost_in_cents: listing.cost_in_cents, category_id: listing.category_id,  }])
+}
+
+function updateListing(listing, db = conn) {
+    return db('listings')
+        .update([{ title: listing.title, image_URL: listing.image_URL, description: listing.description, cost_in_cents: listing.cost_in_cents }])
 }

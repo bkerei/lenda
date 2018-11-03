@@ -28,7 +28,7 @@ function getMemberByEmail(email, db = conn) {
 
 function getCurrentUser() {
   // console.log("getting current user >>>>> ", currentUser)
-  return currentUser
+  return currentUser || 1
 }
 
 function setCurrentUser(user) {

@@ -50,7 +50,7 @@ router.post('/login', (req, res) => {
     const email = req.body.email
 
     // get the user that has that username
-    membersDb.getMemberByEmail(email)
+    membersDb.getMemberByEmail(email || 'user1@example.com')
         // set the current logged-in user session-data to be the found user.id
         .then(user => {
             // sessionStorage.setItem('currentUserId', user.id);
