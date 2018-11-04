@@ -6,7 +6,19 @@ const loansDb = require('../data/loansDb')
 const nav = {bookings: true}
 
 router.get('/', (req, res) => {
-    res.send('loans index')
+    // loans from db // future, filter by borrower or lender/owner 
+    const loans = []
+    
+    // this will need to be a join query
+    // as we need to bring back loan item details
+    // and item owner, and borrowing member details
+
+    const viewData = {}
+    viewData.loans = loans
+    viewData.nav = nav
+    viewData.currentUser = membersDb.getCurrentUser()
+
+    res.render('./loans/index', viewData)
 })
 
 router.get('/:id', (req, res) => {

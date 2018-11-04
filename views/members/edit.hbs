@@ -3,7 +3,11 @@
     <fieldset>
         <form action="/members/edit" method="post">
             <fieldset>
-                <legend>Join Lenda - Community sharing</legend>
+                <legend> {{#if id}}
+                    Update your profile
+                    {{else}}
+                    Join Lenda - Community sharing
+                    {{/if}}</legend>
                 <label for="image">Image: </label>
                 <input type="url" name="image_URL" value="{{image_URL}}" id="">
                 <br>
@@ -26,7 +30,6 @@
                     {{else}}
                     Join
                     {{/if}}
-
                 </button>
             </fieldset>
         </form>
