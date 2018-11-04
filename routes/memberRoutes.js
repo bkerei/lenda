@@ -3,7 +3,7 @@ const router = express.Router()
 const listingsDb = require('../data/listingsDb')
 const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
-const nav = {community: true}
+const nav = { community: true }
 
 
 // GET requests
@@ -32,7 +32,12 @@ router.get('/', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-    res.render('./members/edit')
+    // console.log("AT MEMBERS/NEW GET                **********************")
+    const viewData = {}
+    viewData.member = {}
+    viewData.nav = { profile: true }
+    viewData.currentUser = membersDb.getCurrentUser()
+    res.render('./members/edit', viewData)
 })
 
 router.get('/:id', (req, res) => {
@@ -42,9 +47,9 @@ router.get('/:id', (req, res) => {
     // get the user data
     membersDb.getMember(id)
         .then(member => {
-            console.log("CurrentUserId:  ", membersDb.getCurrentUser().id, "      viewingProfileId:   ", member.id)
-            navTab = membersDb.getCurrentUser().id == member.id ? { profile: true } : {community: true}
-            res.render('./members/view', { member: member, nav: navTab, currentUser: membersDb.getCurrentUser() })
+            // console.log("CurrentUserId:  ", membersDb.getCurrentUser().id, "      viewingProfileId:   ", member.id)
+            navTab = membersDb.getCurrentUser().id == member.id ? { profile: true } : { community: true }
+            res.render('./members/view', { member: member, nav: { profile: true }, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the member view view
@@ -54,21 +59,21 @@ router.get('/:id', (req, res) => {
 
 // wrong route... to remove
 // router.get('/edit/:id', (req, res) => {
-    // // res.render('./members/edit')
-    // res.send('edit a member')
+// // res.render('./members/edit')
+// res.send('edit a member')
 // })
 
 router.get('/:id/edit', (req, res) => {
     const id = req.params.id;
     membersDb.getMember(id)
         .then(member => {
-            console.log('update member is', member)
-            // const viewData = {}
-            // viewData.member.id
-            // viewData.nav = nav
-            // viewData.currentUser = membersDb.getCurrentUser()
+            // console.log('update member is', member)
+            const viewData = {}
+            viewData.member = member
+            viewData.nav = { profile: true }
+            viewData.currentUser = membersDb.getCurrentUser()
 
-            res.render('./members/edit', member)
+            res.render('./members/edit', viewData)
         })
 
 })
@@ -130,34 +135,35 @@ router.post('/edit', (req, res) => {
     }
     if (member.id) {
         // member.id = id
-        console.log("Member id from form post >>>>>>>>>>>>>>>>>>   ", member.id)
+        // console.log("Member id from form post >>>>>>>>>>>>>>>>>>   ", member.id)
         membersDb.editMember(member)
             .then((db_update_count) => {
-                console.log("DB CoUNT result:......   ", db_update_count)
-                console.log("EDITED MEMBER >>>>>>>>    ", member.id)
+                // console.log("DB CoUNT result:......   ", db_update_count)
+                // console.log("EDITED MEMBER >>>>>>>>    ", member.id)
                 res.redirect('/members/' + member.id)
             })
-            .catch( err => {
-                console.log("EDIT MEMBER ERROR>/............................  ", err)
+            .catch(err => {
+                // console.log("EDIT MEMBER ERROR>/............................  ", err)
                 res.redirect('/')
             })
     } else {
         membersDb.insertNewMember(member)
             .then((newMemberId) => {
-                console.log('new id is >>>>>>>>>>', newMemberId)
+                // console.log('new id is >>>>>>>>>>', newMemberId)
                 // console.log('new current user is is >>>>', membersDb.getMember(newMemberId))
                 membersDb.getMember(newMemberId[0])
                     .then((member) => {
-                        console.log('current member is >>>>>>', member)
-                        membersDb.setCurrentUser(member)
+                        if (member.id == membersDb.getCurrentUser.id ) {
+                            membersDb.setCurrentUser(member)
+                        }
                         res.redirect('/members/' + newMemberId)
                     })
 
                 // console.log(newmember)
 
             })
-            .catch( err => {
-                console.log("NEW MEMBER ERROR>/............................  ", err)
+            .catch(err => {
+                // console.log("NEW MEMBER ERROR>/............................  ", err)
                 res.redirect('/')
             })
 
