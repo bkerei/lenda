@@ -20,22 +20,6 @@ router.get('/new', (req, res) => {
     res.render('./members/edit')
 })
 
-router.post('/new', (req, res) => {
-    const newmember = {
-        name: req.body.name,
-        email: req.body.email,
-        image_URL: req.body.image_URL,
-        about_me: req.body.about_me,
-        username: req.body.username
-    }
-
-    membersDb.insertNewMember(newmember)
-        .then((newMemberId) => {
-            // console.log(newmember)
-            res.redirect('/members/' + newMemberId)
-        })
-})
-
 router.get('/logout', (req, res) => {
     // res.send("log out")
     // console.log("Current user before logout >>>>>---------------------------------- ", membersDb.getCurrentUser())
@@ -43,6 +27,28 @@ router.get('/logout', (req, res) => {
     // console.log("Current user after logout >>>>> ", membersDb.getCurrentUser())
     res.redirect('/')
 })
+
+router.get('/edit/:id', (req, res) => {
+    res.send('edit a member')
+})
+
+router.get('/:id', (req, res) => {
+    // get the user id
+    const id = req.params.id
+
+    // get the user data
+    membersDb.getMember(id)
+        .then(member => {
+            res.render('./members/view', { member: member, nav: { profile: true }, currentUser: membersDb.getCurrentUser() })
+        })
+
+    // render the member view view
+
+})
+
+
+// Post requests
+
 
 router.post('/login', (req, res) => {
 
@@ -68,25 +74,28 @@ router.post('/login', (req, res) => {
 }
 )
 
+router.post('/new', (req, res) => {
+    const newmember = {
+        name: req.body.name,
+        email: req.body.email,
+        image_URL: req.body.image_URL,
+        about_me: req.body.about_me,
+        username: req.body.username
+    }
 
-
-router.get('/edit/:id', (req, res) => {
-    res.send('edit a member')
-})
-
-router.get('/:id', (req, res) => {
-    // get the user id
-    const id = req.params.id
-
-    // get the user data
-    membersDb.getMember(id)
-        .then(member => {
-            res.render('./members/view', { member: member, nav: { profile: true }, currentUser: membersDb.getCurrentUser() })
+    membersDb.insertNewMember(newmember)
+        .then((newMemberId) => {
+            // console.log(newmember)
+            res.redirect('/members/' + newMemberId)
         })
-
-    // render the member view view
-
 })
+
+
+
+
+
+
+
 
 
 

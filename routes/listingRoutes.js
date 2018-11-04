@@ -38,26 +38,6 @@ router.get('/new', (req, res) => {
 //         })
 // })
 
-router.post('/new', (req, res) => {
-    // console.log(">>>> New Listing request data >>>>>>", req.body)
-    const newListing = {
-        member_id: membersDb.getCurrentUser().id,
-        title: req.body.title,
-        description: req.body.description,
-        image_URL: req.body.image_URL,
-        category_id: req.body.category_id,
-        cost_in_cents: req.body.cost_in_cents,
-        category_id: req.body.category_id
-    }
-    // console.log("New Listing >>>>>>>>>>>>>>>>>>>", newListing)
-    listingsDb.insertNewListing(newListing)
-
-        .then((newListingId) => {
-            // console.log(newListings)
-            res.redirect('/listings/' + newListingId)
-        })
-})
-
 router.get('/:id', (req, res) => {
     //get the list id
     const id = req.params.id;
@@ -112,13 +92,35 @@ router.get('/:id/edit', (req, res) => {
 
 })
 
-router.post('/:id/edit', (req, res) => {
-    // get params
-    const listingId = req.params.id
-    // get the listing from DB
-    listingsDb.getList(listingId)
-        .then( listing => {
-            constNewListing 
+// PRE MERGE
+//
+// router.post('/:id/edit', (req, res) => {
+//     // get params
+//     const listingId = req.params.id
+//     // get the listing from DB
+//     listingsDb.getList(listingId)
+//         .then( listing => {
+//             constNewListing 
+//         })
+// })
+
+router.post('/new', (req, res) => {
+    // console.log(">>>> New Listing request data >>>>>>", req.body)
+    const newListing = {
+        member_id: membersDb.getCurrentUser().id,
+        title: req.body.title,
+        description: req.body.description,
+        image_URL: req.body.image_URL,
+        category_id: req.body.category_id,
+        cost_in_cents: req.body.cost_in_cents,
+        category_id: req.body.category_id
+    }
+    // console.log("New Listing >>>>>>>>>>>>>>>>>>>", newListing)
+    listingsDb.insertNewListing(newListing)
+
+        .then((newListingId) => {
+            // console.log(newListings)
+            res.redirect('/listings/' + newListingId)
         })
 })
 
