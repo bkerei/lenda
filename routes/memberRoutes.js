@@ -3,14 +3,29 @@ const router = express.Router()
 const listingsDb = require('../data/listingsDb')
 const membersDb = require('../data/membersDb')
 const loansDb = require('../data/loansDb')
-// const nav = {community: true}
+const nav = {community: true}
 
+
+// GET requests
+//
+
+// this should be a post
+router.get('/logout', (req, res) => {
+    // res.send("log out")
+    // console.log("Current user before logout >>>>>---------------------------------- ", membersDb.getCurrentUser())
+    membersDb.setCurrentUser({})
+    // console.log("Current user after logout >>>>> ", membersDb.getCurrentUser())
+    res.redirect('/listings')
+})
+
+
+// members index
 router.get('/', (req, res) => {
     // console.log("Current user >>>>>  ", membersDb.getCurrentUser())
     // get the members list data
     membersDb.getMembers()
         .then(members => {
-            res.render('./members/index', { members: members, nav: { community: true }, currentUser: membersDb.getCurrentUser() })
+            res.render('./members/index', { members: members, nav: nav, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the members index view
@@ -20,18 +35,6 @@ router.get('/new', (req, res) => {
     res.render('./members/edit')
 })
 
-router.get('/logout', (req, res) => {
-    // res.send("log out")
-    // console.log("Current user before logout >>>>>---------------------------------- ", membersDb.getCurrentUser())
-    membersDb.setCurrentUser({})
-    // console.log("Current user after logout >>>>> ", membersDb.getCurrentUser())
-    res.redirect('/')
-})
-
-router.get('/edit/:id', (req, res) => {
-    res.send('edit a member')
-})
-
 router.get('/:id', (req, res) => {
     // get the user id
     const id = req.params.id
@@ -39,12 +42,37 @@ router.get('/:id', (req, res) => {
     // get the user data
     membersDb.getMember(id)
         .then(member => {
-            res.render('./members/view', { member: member, nav: { profile: true }, currentUser: membersDb.getCurrentUser() })
+            console.log("CurrentUserId:  ", membersDb.getCurrentUser().id, "      viewingProfileId:   ", member.id)
+            navTab = membersDb.getCurrentUser().id == member.id ? { profile: true } : {community: true}
+            res.render('./members/view', { member: member, nav: navTab, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the member view view
 
 })
+
+
+// wrong route... to remove
+// router.get('/edit/:id', (req, res) => {
+    // // res.render('./members/edit')
+    // res.send('edit a member')
+// })
+
+router.get('/:id/edit', (req, res) => {
+    const id = req.params.id;
+    membersDb.getMember(id)
+        .then(member => {
+            console.log('update member is', member)
+            // const viewData = {}
+            // viewData.member.id
+            // viewData.nav = nav
+            // viewData.currentUser = membersDb.getCurrentUser()
+
+            res.render('./members/edit', member)
+        })
+
+})
+
 
 
 // Post requests
@@ -65,10 +93,11 @@ router.post('/login', (req, res) => {
                 // console.log("about to set user, current user is >>>> ", membersDb.getCurrentUser())
                 membersDb.setCurrentUser(user)
                 // console.log("Just set user, current user is now >>>> ", membersDb.getCurrentUser())
-                res.redirect('/members/' + user.id)
+                res.redirect('../listings')
+                // res.redirect('/members/' + user.id)
             } else {
                 // redirect to home
-                res.redirect('/')
+                res.redirect('../listings')
             }
         })
 }
@@ -90,8 +119,52 @@ router.post('/new', (req, res) => {
         })
 })
 
+router.post('/edit', (req, res) => {
+    const member = {
+        name: req.body.name,
+        email: req.body.email,
+        image_URL: req.body.image_URL,
+        about_me: req.body.about_me,
+        username: req.body.username,
+        id: req.body.id
+    }
+    if (member.id) {
+        // member.id = id
+        console.log("Member id from form post >>>>>>>>>>>>>>>>>>   ", member.id)
+        membersDb.editMember(member)
+            .then((db_update_count) => {
+                console.log("DB CoUNT result:......   ", db_update_count)
+                console.log("EDITED MEMBER >>>>>>>>    ", member.id)
+                res.redirect('/members/' + member.id)
+            })
+            .catch( err => {
+                console.log("EDIT MEMBER ERROR>/............................  ", err)
+                res.redirect('/')
+            })
+    } else {
+        membersDb.insertNewMember(member)
+            .then((newMemberId) => {
+                console.log('new id is >>>>>>>>>>', newMemberId)
+                // console.log('new current user is is >>>>', membersDb.getMember(newMemberId))
+                membersDb.getMember(newMemberId[0])
+                    .then((member) => {
+                        console.log('current member is >>>>>>', member)
+                        membersDb.setCurrentUser(member)
+                        res.redirect('/members/' + newMemberId)
+                    })
+
+                // console.log(newmember)
+
+            })
+            .catch( err => {
+                console.log("NEW MEMBER ERROR>/............................  ", err)
+                res.redirect('/')
+            })
+
+    }
 
 
+})
 
 
 

@@ -8,9 +8,9 @@ const nav = { listings: true }
 
 router.get('/', (req, res) => {
     // get the list data
-    listingsDb.getLists()
-        .then(listings => {
-            res.render('./listings/index', { listings: listings, nav: nav, currentUser: membersDb.getCurrentUser() })
+    listingsDb.getListings()
+            .then(listings => {
+            res.render('./listings/index', { listings: listings, nav: {browse: true}, currentUser: membersDb.getCurrentUser() })
         })
 
     // render the list index view
@@ -21,7 +21,7 @@ router.get('/new', (req, res) => {
     categoriesDb.getCategories()
         .then(categories => {
             let newListing = {}
-            res.render('./listings/edit', { categories: categories, listing: newListing, currentUser: membersDb.getCurrentUser() })
+            res.render('./listings/edit', { categories: categories, nav: nav, listing: newListing, currentUser: membersDb.getCurrentUser() })
         })
 
 })
@@ -34,7 +34,7 @@ router.get('/new', (req, res) => {
 //     // get user, then get their listings
 //     membersDb.getMember(member_id)
 //         .then( member => {
-//             listingsDb.getList
+//             listingsDb.getListing
 //         })
 // })
 
@@ -42,7 +42,7 @@ router.get('/:id', (req, res) => {
     //get the list id
     const id = req.params.id;
     //get the listings data
-    listingsDb.getList(id)
+    listingsDb.getListing(id)
         .then(listing => {
             // get the listing owner
             console.log("Listing >>>>>>>>>>>> ", listing)
@@ -73,7 +73,7 @@ router.get('/:id/edit', (req, res) => {
     categoriesDb.getCategories()
         .then(categories => {
             // get the listing from db ... should return a single object
-            listingsDb.getList(listing_id)
+            listingsDb.getListing(listing_id)
                 .then(listing => {
                     // sort the categories with listing category at top (so it shows as the selected category)
                     categories.sort((category_a, category_b) => {
@@ -98,13 +98,13 @@ router.get('/:id/edit', (req, res) => {
 //     // get params
 //     const listingId = req.params.id
 //     // get the listing from DB
-//     listingsDb.getList(listingId)
+//     listingsDb.getListing(listingId)
 //         .then( listing => {
 //             constNewListing 
 //         })
 // })
 
-router.post('/new', (req, res) => {
+router.post('/edit', (req, res) => {
     // console.log(">>>> New Listing request data >>>>>>", req.body)
     const newListing = {
         member_id: membersDb.getCurrentUser().id,

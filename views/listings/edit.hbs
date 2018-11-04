@@ -1,7 +1,7 @@
 {{!-- This will be a form, used for new listing and edit existing listing --}}
 <section class="formcontainer">
    
-    <form method="post">
+    <form method="post" action="/listings/edit">
      <fieldset>
         <legend>
             <h2>List a...</h2>
@@ -26,7 +26,14 @@
             <label for="item"><h2>Your Pictures:</h2></label>
             <input  name="image_URL" type="url" value="{{listing.image_URL}}" accept="image/*">
             <br>
-            <input type="submit" value="Submit">
+             <input type="hidden" name="id" value="{{listing.id}}">
+                <button type="submit">
+                    {{#if id}}
+                    Update
+                    {{else}}
+                    Add
+                    {{/if}}
+                </button>
 
             
 <br>

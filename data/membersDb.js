@@ -7,10 +7,12 @@ let currentUser = {};
 module.exports = {
   getMembers: getMembers,
   getMember: getMember,
-  getMemberByEmail: getMemberByEmail, 
+  insertNewMember: insertNewMember,
+  editMember: editMember,
+  getMemberByEmail: getMemberByEmail,
   getCurrentUser: getCurrentUser,
-  setCurrentUser: setCurrentUser,
-  insertNewMember: insertNewMember
+  setCurrentUser: setCurrentUser
+
 }
 
 function getMembers(db = conn) {
@@ -41,4 +43,11 @@ function setCurrentUser(user) {
 function insertNewMember(profile, db = conn) {
   return db('members')
     .insert([{ name: profile.name, username: profile.username, email: profile.email, image_URL: profile.image_URL, about_me: profile.about_me }])
+}
+
+function editMember(profile, db = conn) {
+  console.log('edit profile is: >>>>>>', profile)
+  return db('members')
+    .update({ name: profile.name, username: profile.username, email: profile.email, image_URL: profile.image_URL, about_me: profile.about_me })
+    .where('id', profile.id)
 }

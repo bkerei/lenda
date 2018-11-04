@@ -1,7 +1,9 @@
 <h2>Profile for {{member.username}}</h2>
 
-    
-        <img src="{{member.image_URL}}" alt="image of {{member.username}}" title="image of {{member.username}}({{member.name}})" style="max-height: 150px;">
-        <h3>{{member.name}}  ({{member.username}})</h3>
-        <p>  About: {{member.about_me}}</p>
-        <p><a href="/members/{{member.id}}/edit">Edit</a></p>
+
+<img src="{{member.image_URL}}" alt="image of {{member.username}}" title="image of {{member.username}}({{member.name}})"
+        style="max-height: 150px;">
+<h3>{{member.name}} ({{member.username}})</h3>
+<p> About: {{member.about_me}}</p>
+{{member.email}}
+<p><a href="/members/{{member.id}}/edit">Edit</a></p>

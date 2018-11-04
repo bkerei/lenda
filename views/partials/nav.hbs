@@ -2,11 +2,11 @@
   {{!-- <p class="{{#if nav.home}}current{{/if}}">
     <a href="/">Home</a>
   </p> --}}
-  <p class="{{#if nav.listings}}current{{/if}}">
+  <p class="{{#if nav.browse}}current{{/if}}">
     <a href="/listings?cat=1">Browse</a>
   </p>
   {{#if currentUser.id}}
-  <p class="{{#if nav.bookings}}current{{/if}}">
+  <p class="{{#if nav.listings}}current{{/if}}">
     <a href="/listings/new">List something</a>
   </p>
   <p class="{{#if nav.bookings}}current{{/if}}">
@@ -18,7 +18,7 @@
   {{/if}}
   <p class="{{#if nav.profile}}current{{/if}}">
     {{#if currentUser.id}}
-    <a href="../members/">{{currentUser.username}}'s profile</a>
+    <a href="../members/{{currentUser.id}}">my profile</a>
     {{else}}
     <a href="../members/new">sign-up</a>
     {{/if}}
