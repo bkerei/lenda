@@ -1,29 +1,41 @@
 {{!-- This will be a form, used for new listing and edit existing listing --}}
 <section class="formcontainer">
    
-    <form method="post">
+    <form method="post" action="/listings/edit">
      <fieldset>
         <legend>
             <h2>List a...</h2>
         </legend>
         <br>
-    <label for= "category"><h2>Choose a category:</h2></label>
-        <select>
+    <label for="category"><h2>Choose a category:</h2></label>
+        <select name="category_id">
             {{#each categories}}
             <option value= {{id}}>{{name}}</option>
             {{/each}}
         </select> 
         <br>
             <label for="title"><h2>Title:</h2></label>
-            <input type="text" name = "title" accept="text/plain">
+            <input type="text" name="title" value="{{listing.title}}" accept="text/plain">
             <br>
             <label for="add"><h2>Tell us about your item</h2></label>
-            <textarea></textarea>
+            <div style="width:80%;">
+            <textarea name="description" rows="10" style="width: 100%;">{{listing.description}}</textarea>
+</div>
+            <input type="text" name="cost_in_cents" value="{{listing.cost_in_cents}}">
             <br>
             <label for="item"><h2>Your Pictures:</h2></label>
-            <input type="url" accept="image/*">
+            <input  name="image_URL" type="url" value="{{listing.image_URL}}" accept="image/*">
             <br>
-            <input type="submit" value="Submit">
+             <input type="hidden" name="id" value="{{listing.id}}">
+                <button type="submit">
+                    {{#if listing.id}}
+                    Update
+                    {{else}}
+                    Add
+                    {{/if}}
+                </button>
+
+            
 <br>
         </fieldset>
     </form>

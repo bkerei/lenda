@@ -35,8 +35,11 @@ Contents:
 
 body {
     /* background-color: aquamarine; */
-    background-image: url("../images/128-119.jpg");
+    /* background-image: url("../images/128-119.jpg"); */
+    background-image: url("../images/128-86.jpg");
     background-repeat:repeat;
+    /* background-color: white; */
+
     /* background-repeat: repeat-y; */
     font-family: Raleway, sans-serif;
     font-size: 12px;
@@ -392,6 +395,8 @@ footer div {
 @media (min-width: 640px) {
     body {
         font-size:16px;
+        background-image: url("../images/128-119.jpg");
+        background-repeat:repeat;
 
     }
     .page {
@@ -436,11 +441,11 @@ footer div {
 @media (min-width: 1200px) {
     body {
         font-size:19px;
-        background-image: url("../images/kowhai-bkgd.jpg");
-        background-repeat: no-repeat;
+        /* background-image: url("../images/128-119.jpg"); */
+        background-image: url("../images/128-86.jpg");
+        background-repeat:repeat;
         /* background-size: cover; */
-        background-size: contain
-
+        /* background-size: contain */
     }
 }
 
@@ -455,5 +460,4 @@ footer div {
     font-weight: bold;
     width: 200px;
     text-align: center;
-
 }

@@ -31,6 +31,7 @@ function getMemberByEmail(email, db = conn) {
 function getCurrentUser() {
   // console.log("getting current user >>>>> ", currentUser)
   return currentUser
+  // return currentUser || 1
 }
 
 function setCurrentUser(user) {
@@ -46,8 +47,16 @@ function insertNewMember(profile, db = conn) {
 }
 
 function editMember(profile, db = conn) {
-  console.log('edit profile is: >>>>>>', profile)
+  // console.log('edit profile is: >>>>>>', profile)
   return db('members')
     .update({ name: profile.name, username: profile.username, email: profile.email, image_URL: profile.image_URL, about_me: profile.about_me })
     .where('id', profile.id)
+    .then( promise => {
+      if (currentUser.id == profile.id) {
+        getMember(currentUser.id)
+        .then( updatedMember => {
+          setCurrentUser(updatedMember)
+        })
+      }
+    })
 }
