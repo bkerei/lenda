@@ -45,7 +45,7 @@ router.get('/:id', (req, res) => {
     listingsDb.getListing(id)
         .then(listing => {
             // get the listing owner
-            console.log("Listing >>>>>>>>>>>> ", listing)
+            // console.log("Listing >>>>>>>>>>>> ", listing)
             membersDb.getMember(listing.member_id)
                 .then(owner => {
                     categoriesDb.getCategory(listing.category_id)
