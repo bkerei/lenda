@@ -92,17 +92,6 @@ router.get('/:id/edit', (req, res) => {
 
 })
 
-// PRE MERGE
-//
-// router.post('/:id/edit', (req, res) => {
-//     // get params
-//     const listingId = req.params.id
-//     // get the listing from DB
-//     listingsDb.getListing(listingId)
-//         .then( listing => {
-//             constNewListing 
-//         })
-// })
 
 router.post('/edit', (req, res) => {
     // console.log(">>>> New Listing request data >>>>>>", req.body)
