@@ -3,29 +3,29 @@
     <fieldset>
         <form action="/members/edit" method="post">
             <fieldset>
-                <legend> {{#if id}}
+                <legend> {{#if currentUser.id}}
                     Update your profile
                     {{else}}
                     Join Lenda - Community sharing
                     {{/if}}</legend>
                 <label for="image">Image: </label>
-                <input type="url" name="image_URL" value="{{image_URL}}" id="">
+                <input type="url" name="image_URL" value="{{member.image_URL}}">
                 <br>
                 <label for="name">Name:</label>
-                <input type="text" name="name" value="{{name}}">
+                <input type="text" name="name" value="{{member.name}}">
                 <br>
                 <label for="username">Username:</label>
-                <input type="text" name="username" value="{{username}}">
+                <input type="text" name="username" value="{{member.username}}">
                 <br>
                 <label for="email">Email:</label>
-                <input type="email" name="email" value="{{email}}" id="">
+                <input type="email" name="email" value="{{member.email}}" id="">
                 <br>
                 <label for="aboutme">About Me:</label>
-                <textarea name="about_me" id="" cols="30" rows="10" value="{{about_me}}"></textarea>
+                <textarea name="about_me" id="" cols="30" rows="10" value="{{member.about_me}}"></textarea>
                 <br>
-                <input type="hidden" name="id" value="{{id}}">
+                <input type="hidden" name="id" value="{{member.id}}">
                 <button type="submit">
-                    {{#if id}}
+                    {{#if currentUser.id}}
                     Update
                     {{else}}
                     Join
